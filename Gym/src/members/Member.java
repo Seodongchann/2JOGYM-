@@ -1,5 +1,7 @@
 package members;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +11,13 @@ import lombok.Data;
 @Builder
 public class Member {
 	private int id;
-	private int name;
+	private String name;
 	private int phone;
-	private int gender;
+	private String gender;
 	private String birth;
 	private String address;
 	private int enroll_code;
+	private String member_image;
+	
 	
 }

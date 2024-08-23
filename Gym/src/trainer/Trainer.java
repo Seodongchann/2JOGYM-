@@ -16,5 +16,6 @@ public class Trainer {
 	private String birth;
 	private LocalDate start_date;
 	private String address;
+	private String trainer_image;
 	
 }
