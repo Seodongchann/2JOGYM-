@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Member {
+	private int id;
 	private String name;
 	private int phone;
 	private String gender;
@@ -19,6 +20,17 @@ public class Member {
 	private String address;
 	private int enroll_code;
 	private String member_image;
-	
-	
+
+	public Member(String name, int phone, String gender, String birth, String address, int enroll_code,
+			String member_image) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.gender = gender;
+		this.birth = birth;
+		this.address = address;
+		this.enroll_code = enroll_code;
+		this.member_image = member_image;
+	}
+
 }

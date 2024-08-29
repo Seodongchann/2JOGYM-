@@ -15,7 +15,7 @@ public class MemberDAOImpl implements MemberDAO {
 	// 회원 등록
 	@Override
 	public int memberInsert(Member member) {
-		String sql = "insert into member (Member_Name, Member_Phone, Member_Gender, Member_Birth, Member_Address, Enoll_Code, Member_image) values(?,?,?,?,?,?,?);";
+		String sql = "insert into member (Member_Name, Member_Phone, Member_Gender, Member_Birth, Member_Address, Enroll_Code, Member_image) values(?,?,?,?,?,?,?);";
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -45,7 +45,7 @@ public class MemberDAOImpl implements MemberDAO {
 	// 회원 정보 수정
 	@Override
 	public int memberUpdate(Member member) {
-		String sql = "update member set Member_Name = ?, Member_Phone = ?, Member_Gender = ?, Member_Birth= ?, Member_Address = ? Member_image = ? where Enoll_Code = ?";
+		String sql = "update member set Member_Name = ?, Member_Phone = ?, Member_Gender = ?, Member_Birth= ?, Member_Address = ?, Member_image = ? where Enroll_Code = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int result = 0;
