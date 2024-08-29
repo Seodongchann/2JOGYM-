@@ -1,6 +1,6 @@
 package pt;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -11,10 +11,12 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class PT {
-	private int trainer_Id;
-	private int member_Id;
-	private LocalDateTime pt_Time;
-	private int pt_Price;
-	private LocalDate pt_EnrollDate;
+	private int PT_Trainer_ID;
+	private int PT_Member_ID;
+	private LocalDateTime PT_Time;
+	private int PT_Price;
+	private Date PT_EnrollDate;
+	private Date PT_Date;
 	
+
 }

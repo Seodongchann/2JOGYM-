@@ -1,6 +1,7 @@
 package trainer;
 
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +28,7 @@ import javax.swing.table.TableRowSorter;
 
 public class trainerInput extends JFrame {
 	private void list2(List<JPanel> list, JPanel listpnl, TrainerDB db) {
-		List<Trainer> list2 = new ArrayList<>();
-		list2 = db.selectAll();
+		List<Trainer> list2 = db.selectAll();
 		// 리스트에 리스트2를 넣어라.
 		int a = 250;
 		int b = 50;
@@ -56,6 +56,8 @@ public class trainerInput extends JFrame {
 			listpnl.add(listlblStart_date2);
 			listpnl.add(listlbladdress2);
 			list.add(listpnl);
+			
+			
 		}
 		
 	}
@@ -166,7 +168,7 @@ public class trainerInput extends JFrame {
 		TrainerListpnl.add(TrainerListButtonpnl);
 
 		TrainerListButtonpnl.setLayout(null);
-		TrainerListButtonpnl.setBounds(50, 30, 800, 150);
+		TrainerListButtonpnl.setBounds(50, 30, 800, 30);
 		// 트레이너 리스트 이름라벨
 		JLabel listnamelbl = new JLabel("이름");
 		listnamelbl.setText("이름");
@@ -215,7 +217,7 @@ public class trainerInput extends JFrame {
 		listpnl.setBounds(400, 100, 900, 550);
 
 		listsearchbtn.addActionListener(new ActionListener() {
-
+			//검색리스너
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -255,6 +257,30 @@ public class trainerInput extends JFrame {
 			}
 		});
 
+		
+//		List<JLabel> lblList = new ArrayList<>();
+//		for (int i = 0; i < 10;i++) {
+//			JLabel lblNewLabel = new JLabel("");
+//			lblNewLabel.setBounds(60, 20*i, 60, 20);
+//			TrainerListSQLpnl.add(lblNewLabel);
+//			lblList.add(lblNewLabel);
+//			
+//			JLabel lblNewLabel2 = new JLabel("");
+//			lblNewLabel2.setBounds(100, 20*i, 60, 20);
+//			TrainerListSQLpnl.add(lblNewLabel2);
+//			lblList.add(lblNewLabel2);
+//		}
+//		int x= 0;
+//		int y= 30;
+//		for (int i = 0; i < list.size(); i++) {
+//			JPanel addListpnl = new JPanel();
+//			addListpnl.setLayout(null);
+//			addListpnl.setBounds(0, x =+y, 800, 30);
+//			TrainerListSQLpnl.add(addListpnl);
+//			
+//		}
+		
+		
 		// 등록 버튼
 		JButton rgbtn = new JButton("등록");
 		rgbtn.setBounds(50, 570, 60, 25);
@@ -277,6 +303,15 @@ public class trainerInput extends JFrame {
 				result = db.insert(tr);
 				System.out.println(result);
 
+				List<Trainer> list2 = db.selectAll();
+				
+//				for (int j = 0; j < list.size(); j++) {
+//					if (lblList.get(j).getText().equals("")) {
+//						lblList.get(j).setText(list2.get(j).getName());
+////						lblList.get(j).setText(list2.get(j).getPhone());
+//						break;
+//					}
+//				}
 				list2(list, listpnl, db);
 				listpnl.revalidate();
 				listpnl.repaint();
@@ -285,23 +320,24 @@ public class trainerInput extends JFrame {
 		});
 		
 		TrainerDB db = new TrainerDB();
-		TrainerListSQLpnl.setBounds(50, 180, 800, 400);
+		TrainerListSQLpnl.setBounds(50, 60, 800, 520);
 		TrainerListSQLpnl.setLayout(null);
-		
-		
-		
 //		TrainerListSQLpnl.add(list2(list, listpnl, db));
 //		TrainerListSQLpnl.add(list2(list, listpnl, db));
 		TrainerListpnl.add(TrainerListSQLpnl);
+		for (int i = 0; i < list.size(); i++) {
+			
+		}
+		
 //		String[] columns;
-//		columns = new String[] { "번호", "이름", "나이", "성별", "전화번호", "메일", "주소" };
+//		columns = new String[] { "번호", "이름", "전화번호", "성별", "생년월일", "임관일", "주소" };
 //		List<String[]> rows;
 //		rows = dao.getListById(id); // 데이터 튜플(ArrayList)
 //		JScrollPane scrollpane = new JScrollPane();
 		// jTable1 생성
 //		JTable jtable = new JTable();
 //		model = new DefaultTableModel(data, columns); // 테이블에 붙일 모델 객체 생성(데이터, 컬럼)
-//		jtable = new javax.swing.JTable(model);	// 테이블 객체 생성
+//		jtable = new JTable(model);	// 테이블 객체 생성
 //		scrollpane.setViewportView(jtable); // 패널에 테이블 붙이기
 
 		// jTable1 컬럼 별 정렬 기능 추가
@@ -310,8 +346,8 @@ public class trainerInput extends JFrame {
 
 		// 스크롤바
 //		Frame frame = new Frame("테스트");
-//		JScrollPane scrollpane = new JScrollPane();
-//		frame.add(scrollpane);
+//		JScrollPane scrollpane1 = new JScrollPane();
+//		frame.add(scrollpane1);
 		Inputpnl.setLayout(null);
 		Inputpnl.setSize(1500, 700);
 

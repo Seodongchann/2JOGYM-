@@ -12,15 +12,15 @@ public interface TrainerDAO {
 	
 	//행 추가하기 : 추가된 행의 개수 반환
 //	int insert(Products p);
-	int insert(int Member_ID, String Member_Name, int Member_Phone
-			, String Member_Gender, String Member_Birth
-			, String Member_Address, int Enroll_Code);
+	int insert(int Trainer_ID, String Trainer_Name, int Trainer_Phone
+			, String Trainer_Gender, String Trainer_Birth
+			, String Trainer_Address, int Enroll_Code);
 	
 	//행 수정하기 : 변경된 행의 개수 반환
 //	int update(Products p);
-	int update(int Member_ID, String Member_Name, int Member_Phone
-			, String Member_Gender, String Member_Birh
-			, String Member_Address, int Enroll_Code);
+	int update(int Trainer_ID, String Trainer_Name, int Trainer_Phone
+			, String Trainer_Gender, String Trainer_Birh
+			, String Trainer_Address, int Enroll_Code);
 	
 	//행 삭제하기 : 삭제된 행의 개수 반환
 	int delete(int no);
