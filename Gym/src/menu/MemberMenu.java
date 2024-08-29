@@ -1,140 +1,170 @@
 package menu;
+
+import javax.swing.*;
+
+import attend.Attend;
+import attend.AttendDAOImpl;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import java.awt.Rectangle;
-import java.awt.Color;
+
+import members.Member;
+import members.MemberDAO;
+import members.MemberDAOImpl;
 
 public class MemberMenu extends JFrame {
-    private JLabel lblEnterTime;
-    private JLabel lblExitTime;
-    private JButton btnEnter;
-    private JButton btnExit;
+	private MemberDAO memberDAO = new MemberDAOImpl();
+	private AttendDAOImpl attendDAO = new AttendDAOImpl();
+	private Member member;
+	private JLabel lblEnterTime;
+	private JLabel lblExitTime;
+	private JButton btnEnter;
+	private JButton btnExit;
 
-    public MemberMenu() {
-        super("회원 메뉴 입니다");
-        
-        JPanel pnl = new JPanel();
-        
-        btnEnter = new JButton("출석");
-        
-        btnEnter.setBounds(275, 220, 85, 60);
-        btnEnter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lblEnterTime.setText(getCurrentTime());
-                btnEnter.setEnabled(false);
-                btnExit.setEnabled(true);
-            }
-        });
-        
-        btnExit = new JButton("퇴장");
-        btnExit.setEnabled(false);
-        btnExit.setBounds(new Rectangle(372, 220, 85, 60));
-        btnExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	lblExitTime.setText(getCurrentTime());
-                btnEnter.setEnabled(true);
-            	btnExit.setEnabled(false);
-            }
-        });
-        
-        JButton btnSchedule = new JButton("스케줄");
-        btnSchedule.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new Schedule().setVisible(true);
-            }
-        });
-        btnSchedule.setBounds(319, 377, 97, 60);
-        pnl.setLayout(null);
-        
-        pnl.add(btnEnter);
-        pnl.add(btnExit);
-        pnl.add(btnSchedule);
-        
-        getContentPane().add(pnl);
-        
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.LIGHT_GRAY);
-        panel.setBounds(0, 0, 263, 461);
-        pnl.add(panel);
-        panel.setLayout(null);
-        
-        JLabel lblImage = new JLabel("이미지", SwingConstants.CENTER);
-        lblImage.setBounds(44, 27, 175, 155);
-        lblImage.setBackground(Color.WHITE);
-        lblImage.setOpaque(true);
-        
-        panel.add(lblImage);
-        
-        JLabel lblName = new JLabel("이름 : ");
-        lblName.setBounds(54, 201, 99, 27);
-        panel.add(lblName);
-        
-        JLabel lblGender = new JLabel("성별 : ");
-        lblGender.setBounds(54, 238, 72, 27);
-        panel.add(lblGender);
-        
-        JLabel lblPhone = new JLabel("전화번호: ");
-        lblPhone.setBounds(54, 275, 175, 27);
-        panel.add(lblPhone);
-        
-        JLabel lblBirth = new JLabel("생년월일: ");
-        lblBirth.setBounds(54, 312, 194, 27);
-        panel.add(lblBirth);
-        
-        JLabel lblAddress = new JLabel("주소: ");
-        lblAddress.setBounds(54, 349, 194, 27);
-        panel.add(lblAddress);
-        
-        JLabel lblMembership = new JLabel("회원권: ");
-        lblMembership.setBounds(54, 386, 194, 27);
-        panel.add(lblMembership);
-        
-        JLabel lblPT = new JLabel("PT: ");
-        lblPT.setBounds(54, 424, 194, 27);
-        panel.add(lblPT);
-        
-        lblEnterTime = new JLabel("");
-        lblEnterTime.setForeground(Color.RED);
-        lblEnterTime.setBounds(299, 290, 57, 15);
-        pnl.add(lblEnterTime);
-        
-        lblExitTime = new JLabel("");
-        lblExitTime.setForeground(Color.BLUE);
-        lblExitTime.setBounds(396, 290, 57, 15);
-        pnl.add(lblExitTime);
-        
-        JLabel lblMemberNum = new JLabel("회원번호 : ");
-        lblMemberNum.setBounds(309, 143, 119, 37);
-        pnl.add(lblMemberNum);
-        
-        JButton btnGoMenu = new JButton("나가기");
-        btnGoMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
-        btnGoMenu.setBounds(387, 10, 85, 23);
-        pnl.add(btnGoMenu);
-        
-        setSize(500, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-    
-    private String getCurrentTime() {
-        SimpleDateFormat NowTime = new SimpleDateFormat("HH:mm");
-        return NowTime.format(new Date());
-    }
+	// 새로운 생성자 추가
+	public MemberMenu(Member member) {
+		super("회원 메뉴 입니다");
+		this.member = member;
 
-//    public static void main(String[] args) {
-//        new MemberMenu().setVisible(true);
-//    }
+		JPanel pnl = new JPanel();
+		pnl.setLayout(null);
+
+		// 출석 버튼
+		btnEnter = new JButton("출석");
+		btnEnter.setBounds(275, 220, 85, 60);
+		btnEnter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lblEnterTime.setText(getCurrentTime());
+				btnEnter.setEnabled(false);
+				btnExit.setEnabled(true);
+				// 로그인된 사람의 정보를 가져오는 메서드 필요
+				// 등록된 사람의 id
+				// dao.timeInsert(attend);
+
+				LocalDate date = LocalDate.now();
+				LocalDateTime time = LocalDateTime.now();
+				Attend enter = new Attend(member.getEnroll_code(), date, time);
+				attendDAO.insertEnter(enter);
+			}
+		});
+		pnl.add(btnEnter);
+
+		// 퇴장 버튼
+		btnExit = new JButton("퇴장");
+		btnExit.setEnabled(false);
+		btnExit.setBounds(new Rectangle(372, 220, 85, 60));
+		btnExit.addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        lblExitTime.setText(getCurrentTime());
+		        btnEnter.setEnabled(true);
+		        btnExit.setEnabled(false);
+		        
+		        LocalDate date = LocalDate.now();
+		        LocalDateTime enterTime = LocalDateTime.now();
+		        // 퇴장 시간을 현재 시간으로 설정
+		        LocalDateTime exitTime = LocalDateTime.now();
+
+		        Attend exit = new Attend(member.getEnroll_code(), date, enterTime, exitTime);
+		        attendDAO.insertExit(exit);
+		    }
+		});
+		pnl.add(btnExit);
+
+		// 스케줄 버튼
+		JButton btnSchedule = new JButton("스케줄");
+		btnSchedule.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Schedule(member).setVisible(true);
+			}
+		});
+		btnSchedule.setBounds(319, 377, 97, 60);
+		pnl.add(btnSchedule);
+
+		// 왼쪽 패널
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBounds(0, 0, 263, 461);
+		pnl.add(panel);
+		panel.setLayout(null);
+
+		// 이미지 레이블
+		JLabel lblImage = new JLabel("이미지", SwingConstants.CENTER);
+		lblImage.setBounds(44, 27, 175, 155);
+		lblImage.setBackground(Color.WHITE);
+		lblImage.setOpaque(true);
+		panel.add(lblImage);
+
+		// 회원 정보 레이블
+		JLabel lblName = new JLabel("이름: " + member.getName());
+		lblName.setBounds(54, 201, 200, 27);
+		panel.add(lblName);
+
+		JLabel lblGender = new JLabel("성별: " + member.getGender());
+		lblGender.setBounds(54, 238, 200, 27);
+		panel.add(lblGender);
+
+		JLabel lblPhone = new JLabel("전화번호: " + member.getPhone());
+		lblPhone.setBounds(54, 275, 200, 27);
+		panel.add(lblPhone);
+
+		JLabel lblBirth = new JLabel("생년월일: " + member.getBirth());
+		lblBirth.setBounds(54, 312, 200, 27);
+		panel.add(lblBirth);
+
+		JLabel lblAddress = new JLabel("주소: " + member.getAddress());
+		lblAddress.setBounds(54, 349, 200, 27);
+		panel.add(lblAddress);
+
+		// 회원권 및 PT 정보 (여기서는 임의로 추가)
+		JLabel lblMembership = new JLabel("회원권: 일반");
+		lblMembership.setBounds(54, 386, 200, 27);
+		panel.add(lblMembership);
+
+		JLabel lblPT = new JLabel("PT: 없음");
+		lblPT.setBounds(54, 424, 200, 27);
+		panel.add(lblPT);
+
+		// 출석 및 퇴장 시간 레이블
+		lblEnterTime = new JLabel("");
+		lblEnterTime.setForeground(Color.RED);
+		lblEnterTime.setBounds(299, 290, 57, 15);
+		pnl.add(lblEnterTime);
+
+		lblExitTime = new JLabel("");
+		lblExitTime.setForeground(Color.BLUE);
+		lblExitTime.setBounds(396, 290, 57, 15);
+		pnl.add(lblExitTime);
+
+		// 회원번호 레이블
+		JLabel lblMemberNum = new JLabel("회원번호: " + member.getEnroll_code());
+		lblMemberNum.setBounds(309, 143, 200, 37);
+		pnl.add(lblMemberNum);
+
+		// 나가기 버튼
+		JButton btnGoMenu = new JButton("나가기");
+		btnGoMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		btnGoMenu.setBounds(387, 10, 85, 23);
+		pnl.add(btnGoMenu);
+
+		getContentPane().add(pnl);
+
+		setSize(500, 500);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+
+	private String getCurrentTime() {
+		SimpleDateFormat NowTime = new SimpleDateFormat("HH:mm");
+		return NowTime.format(new Date());
+	}
 }
