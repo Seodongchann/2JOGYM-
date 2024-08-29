@@ -4,24 +4,35 @@ import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import members.Member;
+import members.MemberDAO;
+import members.MemberDAOImpl;
+import members.MemberMapper;
+import members.ResultMapper;
+import trainer.Trainer;
+import trainer.TrainerDAO;
+import trainer.TrainerDB;
+import trainer.trainerInput;
+
 import java.awt.Rectangle;
 
 public class InputNum extends JDialog {
-    private JTextField textField;
-
+    private MemberDAO memberDAO = new MemberDAOImpl(); // MemberDAO 객체 생성
+//    private TrainerDAO trainerDAO = new TrainerDB(); // 트레이너 객체 생성
+    
     public InputNum() {
-    	
         super((JFrame) null, "회원 번호 입력", true); // 모달 다이얼로그 생성
         getContentPane().setLayout(new BorderLayout());
 
-        // 왼쪽 글자
+        // 타이틀
         JPanel pnlLeft = new JPanel();
         pnlLeft.add(new JLabel("환영합니다"));
         pnlLeft.add(new JLabel("월드클래스 GYM"));
         pnlLeft.add(new JLabel("애터미짐 입니다"));
         getContentPane().add(pnlLeft, BorderLayout.NORTH);
 
-        // 오른쪽 패널
+        // 번호 입력란
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
@@ -29,17 +40,18 @@ public class InputNum extends JDialog {
         lblInput.setBounds(149, 35, 151, 32);
         panel.add(lblInput);
 
-        textField = new JTextField();
-        textField.setBounds(130, 73, 158, 32);
-        panel.add(textField);
-
+        JTextField txtInputNum = new JTextField();
+        txtInputNum.setBounds(130, 73, 158, 32);
+        panel.add(txtInputNum);
+        
+        // 여기서부터 버튼1 ~
         JButton btnOne = new JButton("1");
 		btnOne.setBounds(104, 127, 63, 37);
 		panel.add(btnOne);
 		btnOne.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 1);
+				txtInputNum.setText(txtInputNum.getText() + 1);
 			}
 		});
 		
@@ -49,7 +61,7 @@ public class InputNum extends JDialog {
 		btnTwo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 2);
+				txtInputNum.setText(txtInputNum.getText() + 2);
 			}
 		});
 		
@@ -59,7 +71,7 @@ public class InputNum extends JDialog {
 		btnThree.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 3);
+				txtInputNum.setText(txtInputNum.getText() + 3);
 			}
 		});
 		
@@ -69,7 +81,7 @@ public class InputNum extends JDialog {
 		btnFour.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 4);
+				txtInputNum.setText(txtInputNum.getText() + 4);
 			}
 		});
 		
@@ -79,7 +91,7 @@ public class InputNum extends JDialog {
 		btnFive.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 5);
+				txtInputNum.setText(txtInputNum.getText() + 5);
 			}
 		});
 		
@@ -89,7 +101,7 @@ public class InputNum extends JDialog {
 		btnSix.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 6);
+				txtInputNum.setText(txtInputNum.getText() + 6);
 			}
 		});
 		
@@ -99,7 +111,7 @@ public class InputNum extends JDialog {
 		btnSeven.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 7);
+				txtInputNum.setText(txtInputNum.getText() + 7);
 			}
 		});
 		
@@ -109,7 +121,7 @@ public class InputNum extends JDialog {
 		btnEight.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 8);
+				txtInputNum.setText(txtInputNum.getText() + 8);
 			}
 		});
 		
@@ -119,7 +131,7 @@ public class InputNum extends JDialog {
 		btnNine.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + 8);
+				txtInputNum.setText(txtInputNum.getText() + 8);
 			}
 		});
 
@@ -129,32 +141,52 @@ public class InputNum extends JDialog {
         btnZero.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textField.setText(textField.getText() + 0);
+                txtInputNum.setText(txtInputNum.getText() + 0);
             }
         });
-
+        // 여기까지 버튼 0
+        
+        // 다음으로 넘어가는 버튼
         JButton btnCheck = new JButton("확인");
         btnCheck.setBounds(104, 267, 63, 37);
         panel.add(btnCheck);
         btnCheck.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	MemberMenu memberMenu = new MemberMenu();
-            	memberMenu.setLocationRelativeTo(null); // 창을 화면 중앙에 배치
-                memberMenu.setVisible(true);
-                memberMenu.toFront();
-                dispose();
-                 
+                try {
+                	// 멤버 등록번호
+                    int enrollCode = Integer.parseInt(txtInputNum.getText());
+                    Member member = memberDAO.memberSelectCode(enrollCode);
+                    
+                    if (member.getEnroll_code() != 0) {
+                        // 회원이 존재하면 ㄱㄱ
+                        MemberMenu memberMenu = new MemberMenu(member);
+                        memberMenu.setLocationRelativeTo(null); // 창을 화면 중앙에
+                        memberMenu.setVisible(true);
+                        memberMenu.toFront();
+                        setVisible(false);
+//                    } else if (){
+                    }
+                    	//없으면
+                     else {
+                    	JOptionPane.showMessageDialog(null, "회원번호가 존재하지 않습니다.");
+                    }
+                    // 문자나 공백 입력시
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "잘못된 입력입니다. 숫자를 입력하세요.");
+                }
+                
             }
         });
-
+        
+        // 번호 지우는 버튼
         JButton btnFix = new JButton("수정");
         btnFix.setBounds(254, 268, 63, 37);
         panel.add(btnFix);
         btnFix.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textField.setText("");
+                txtInputNum.setText("");
             }
         });
 
@@ -163,7 +195,4 @@ public class InputNum extends JDialog {
         setSize(468, 416);
         setLocationRelativeTo(null);
     }
-//    public static void main(String[] args) {
-//        new InputName.setVisible(true);
-//    }
 }

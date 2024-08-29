@@ -44,8 +44,4 @@ public class Menu extends JFrame {
         setSize(750, 550);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
-    public static void main(String[] args) {
-        new Menu().setVisible(true);
-    }
 }
