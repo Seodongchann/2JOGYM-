@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 public class Member {
 	private int id;
 	private String name;
-	private int phone;
+	private String phone;
 	private String gender;
 	private String birth;
 	private String address;
 	private int enroll_code;
 	private String member_image;
 
-	public Member(String name, int phone, String gender, String birth, String address, int enroll_code,
+	public Member(String name, String phone, String gender, String birth, String address, int enroll_code,
 			String member_image) {
 		super();
 		this.name = name;

@@ -10,8 +10,8 @@ import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
 public class EncodeDecode {
-	
-	//파일 인코드
+
+	// 파일 인코드
 	public String encodeImage(File file) {
 		String code = null;
 		Path path = Paths.get(file.getPath());
@@ -25,10 +25,13 @@ public class EncodeDecode {
 		}
 		return code;
 	}
-	// 파일 디코드 
+
+	// 파일 디코드
 	public byte[] decode(String data) {
 		Decoder decoder = Base64.getDecoder();
+		System.out.println(data);
 		byte[] decode = decoder.decode(data);
+		System.out.println(decode);
 		return decode;
 	}
 }

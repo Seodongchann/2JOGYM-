@@ -1,4 +1,4 @@
-package members;
+package memberShip;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -28,11 +29,14 @@ import javax.swing.table.TableModel;
 
 import files.EncodeDecode;
 import lombok.Data;
+import members.Member;
+import members.MemberDAOImpl;
 
 @Data
-public class MemberSearch extends JPanel {
-	private MemberDAOImpl dao = new MemberDAOImpl();
-	private List<Member> list;
+public class MemberShipSearch extends JPanel {
+	private MemberShipDAO dao = new MemberShipDAOImpl();
+	private List<MembershipJoinMember> list;
+	private MembershipJoinMember memberJoin;
 	private JScrollPane scroll;
 	private JPanel memberSearchPnl;
 	private JPanel memberSearchResult;
@@ -44,7 +48,7 @@ public class MemberSearch extends JPanel {
 	private JTable table;
 	private EncodeDecode inde;
 
-	public MemberSearch(MemberGUIApp guiApp) {
+	public MemberShipSearch(MemberShipGUIApp guiApp) {
 		memberSearchPnl = new JPanel();
 		memberSearchPnl.setLayout(null);
 		memberSearchPnl.setBounds(50, 50, 700, 100);
@@ -53,10 +57,12 @@ public class MemberSearch extends JPanel {
 		memberSearchResult.setLayout(null);
 		memberSearchResult.setBounds(50, 150, 700, 450);
 
-		searchLbl = new JLabel("이름");
+		searchLbl = new JLabel("등록코드");
 		serachTf = new JTextField();
 		searchBtn = new JButton("검색");
+		searchBtn.addActionListener(guiApp);
 		searchAllBtn = new JButton("전체");
+		searchAllBtn.addActionListener(guiApp);
 
 		searchLbl.setBounds(0, 0, 50, 20);
 		serachTf.setBounds(70, 0, 100, 20);
@@ -68,16 +74,18 @@ public class MemberSearch extends JPanel {
 		memberSearchPnl.add(searchBtn);
 		memberSearchPnl.add(searchAllBtn);
 
-		list = dao.memberSelectAll();
+		list = dao.joinMembers();
 
 		vector = new Vector<String>();
-		vector.add("번호");
-		vector.addElement("이름");
-		vector.add("휴대전화");
-		vector.addElement("성별");
+		vector.add("이름");
+		vector.addElement("휴대전화");
+		vector.add("성별");
 		vector.addElement("생년월일");
 		vector.addElement("주소");
-		vector.add("등록코드");
+		vector.addElement("등록코드");
+		vector.add("시작일");
+		vector.add("종료일");
+		vector.add("등록일");
 
 		// defaultTableModel 생성
 		DefaultTableModel model;
@@ -87,15 +95,18 @@ public class MemberSearch extends JPanel {
 			}
 		};
 
-		for (Member m : list) {
+		for (MembershipJoinMember m : list) {
 			Vector<String> v = new Vector<String>();
-			v.add(String.valueOf(m.getId()));
 			v.add(m.getName());
-			v.add(String.valueOf(m.getPhone()));
+			v.add(m.getPhone());
 			v.add(m.getGender());
 			v.add(m.getBirth());
 			v.add(m.getAddress());
 			v.add(String.valueOf(m.getEnroll_code()));
+			v.add(String.valueOf(m.getMembership_StartDate()));
+			v.add(String.valueOf(m.getMembership_EndDate()));
+			v.add(String.valueOf(m.getMembership_EnrollDate()));
+
 			model.addRow(v);
 		}
 
@@ -131,32 +142,32 @@ public class MemberSearch extends JPanel {
 				// TODO Auto-generated method stub=
 				int row = table.getSelectedRow();
 				TableModel data = table.getModel();
-				String enroll_code = (String) data.getValueAt(row, 6);
+				String enroll_code = (String) data.getValueAt(row, 5);
+				Date start_date = java.sql.Date.valueOf((String) data.getValueAt(row, 6));
 
 				int enroll = Integer.parseInt(enroll_code);
 
-				Member member = dao.memberSelectCode(enroll);
-				if (member != null) {
-					guiApp.getMm().getRgbtn().setEnabled(false);
-					guiApp.getMm().getRetouchbtn().setEnabled(true);
-					guiApp.getMm().getDeletebtn().setEnabled(true);
-				}
+				MembershipJoinMember member = dao.selectMembership(enroll, start_date);
+//				if (member != null) {
+//					guiApp.getMm().getRgbtn().setEnabled(false);
+//					guiApp.getMm().getRetouchbtn().setEnabled(true);
+//					guiApp.getMm().getDeletebtn().setEnabled(true);
+//				}
 
-				guiApp.getMm().getNametf().setText(member.getName());
-				guiApp.getMm().setRd(null);
-				guiApp.getMm().getPhonetf().setText(String.valueOf(member.getPhone()));
-				guiApp.getMm().getBirthtf().setText(member.getBirth());
-				guiApp.getMm().getAdtf().setText(member.getAddress());
-				guiApp.getMm().getMemberNumtf().setText(String.valueOf(member.getEnroll_code()));
+				guiApp.getMi().getNameTf().setText(member.getName());
+				guiApp.getMi().getBirthTf().setText(member.getBirth());
+				guiApp.getMi().getPhoneTf().setText(String.valueOf(member.getPhone()));
+				guiApp.getMi().getEnroll_codeTf().setText(String.valueOf(member.getEnroll_code()));
+				guiApp.getMi().getAddressTf().setText(member.getAddress());
 				// System.out.println(member.getMember_image());
-				inde = new EncodeDecode();
-				if (member.getMember_image() != null) {
-					guiApp.getMm().setImag(new ImageIcon(inde.decode(member.getMember_image())));
-					guiApp.getMm().getImlbl().setIcon(guiApp.getMm().getImag());
-
-				} else {
-					guiApp.getMm().getImlbl().setIcon(new ImageIcon());
-				}
+//				inde = new EncodeDecode();
+//				if (member.getMember_image() != null) {
+//					guiApp.getMm().setImag(new ImageIcon(inde.decode(member.getMember_image())));
+//					guiApp.getMm().getImlbl().setIcon(guiApp.getMm().getImag());
+//
+//				} else {
+//					guiApp.getMm().getImlbl().setIcon(new ImageIcon());
+//				}
 
 				revalidate();
 				repaint();
@@ -173,8 +184,6 @@ public class MemberSearch extends JPanel {
 		add(memberSearchResult);
 		setLayout(null);
 		setSize(800, 700);
-		searchBtn.addActionListener(guiApp);
-		searchAllBtn.addActionListener(guiApp);
 	}
 
 }

@@ -25,7 +25,7 @@ public class MemberDAOImpl implements MemberDAO {
 			conn = DBUtil.getConnection("gym");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, member.getName());
-			stmt.setInt(2, member.getPhone());
+			stmt.setString(2, member.getPhone());
 			stmt.setString(3, member.getGender());
 			stmt.setString(4, member.getBirth());
 			stmt.setString(5, member.getAddress());
@@ -54,7 +54,7 @@ public class MemberDAOImpl implements MemberDAO {
 			conn = DBUtil.getConnection("gym");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, member.getName());
-			stmt.setInt(2, member.getPhone());
+			stmt.setString(2, member.getPhone());
 			stmt.setString(3, member.getGender());
 			stmt.setString(4, member.getBirth());
 			stmt.setString(5, member.getAddress());

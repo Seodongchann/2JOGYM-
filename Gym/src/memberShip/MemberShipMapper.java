@@ -26,8 +26,9 @@ public class MemberShipMapper implements ResultMapper<MemberShip> {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new RuntimeException("메핑 중 예외발생", e);
 		}
-		return null;
+		
 	}
 
 }

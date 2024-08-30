@@ -9,7 +9,7 @@ public class MemberMapper implements ResultMapper<Member> {
 		try {
 			int id = rs.getInt("Member_id");
 			String name = rs.getString("Member_Name");
-			int phone = rs.getInt("Member_phone");
+			String phone = rs.getString("Member_phone");
 			String gender = rs.getString("Member_gender");
 			String birth = rs.getString("Member_birth");
 			String address = rs.getString("Member_address");

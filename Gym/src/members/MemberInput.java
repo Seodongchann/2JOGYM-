@@ -48,9 +48,10 @@ public class MemberInput extends JPanel {
 	private MemberDAO mDAO = new MemberDAOImpl();
 	private JRadioButton rd;
 	private JRadioButton rd2;
+	private JLabel namelbl;
 
 	public MemberInput(MemberGUIApp guiApp) {
-		JLabel namelbl = new JLabel("이름");
+		namelbl = new JLabel("이름");
 		nametf = new JTextField(5);
 		rd = new JRadioButton("남성", true);
 		rd2 = new JRadioButton("여성");
@@ -106,7 +107,6 @@ public class MemberInput extends JPanel {
 		TitledBorder oneTb = new TitledBorder(new LineBorder(Color.gray), "사용자 정보입력");
 
 		setBorder(oneTb);
-		setBounds(30, 50, 100, 100);
 
 		rgbtn = new JButton("등록");
 		rgbtn.setBounds(50, 570, 60, 25);
@@ -115,12 +115,15 @@ public class MemberInput extends JPanel {
 		retouchbtn = new JButton("수정");
 		retouchbtn.setBounds(110, 570, 60, 25);
 		retouchbtn.addActionListener(guiApp);
-	//	retouchbtn.setEnabled(false);
+		retouchbtn.setEnabled(false);
 		deletebtn = new JButton("삭제");
 		deletebtn.setBounds(170, 570, 60, 25);
+		deletebtn.addActionListener(guiApp);
 		deletebtn.setEnabled(false);
 		resetbtn = new JButton("초기화");
+		resetbtn.addActionListener(guiApp);
 		resetbtn.setBounds(230, 570, 100, 25);
+
 		add(namelbl);
 		add(nametf);
 		add(rd);

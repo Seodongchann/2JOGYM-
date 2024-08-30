@@ -1,6 +1,6 @@
 package memberShip;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -21,4 +21,15 @@ public class MemberShip {
 	private Date membership_StartDate;
 	private Date membership_EndDate;
 	private Date membership_EnrollDate;
+
+	public MemberShip(int enroll_Code, int membership_Month, int membership_Price, Date membership_StartDate,
+			Date membership_EndDate) {
+		super();
+		this.enroll_Code = enroll_Code;
+		this.membership_Month = membership_Month;
+		this.membership_Price = membership_Price;
+		this.membership_StartDate = membership_StartDate;
+		this.membership_EndDate = membership_EndDate;
+	}
+
 }
