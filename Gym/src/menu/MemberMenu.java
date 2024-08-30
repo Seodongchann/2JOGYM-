@@ -26,7 +26,6 @@ public class MemberMenu extends JFrame {
 	private JButton btnEnter;
 	private JButton btnExit;
 
-	// 새로운 생성자 추가
 	public MemberMenu(Member member) {
 		super("회원 메뉴 입니다");
 		this.member = member;
@@ -43,9 +42,6 @@ public class MemberMenu extends JFrame {
 				lblEnterTime.setText(getCurrentTime());
 				btnEnter.setEnabled(false);
 				btnExit.setEnabled(true);
-				// 로그인된 사람의 정보를 가져오는 메서드 필요
-				// 등록된 사람의 id
-				// dao.timeInsert(attend);
 
 				LocalDate date = LocalDate.now();
 				LocalDateTime time = LocalDateTime.now();
@@ -68,7 +64,6 @@ public class MemberMenu extends JFrame {
 		        
 		        LocalDate date = LocalDate.now();
 		        LocalDateTime enterTime = LocalDateTime.now();
-		        // 퇴장 시간을 현재 시간으로 설정
 		        LocalDateTime exitTime = LocalDateTime.now();
 
 		        Attend exit = new Attend(member.getEnroll_code(), date, enterTime, exitTime);
@@ -87,21 +82,21 @@ public class MemberMenu extends JFrame {
 		btnSchedule.setBounds(319, 377, 97, 60);
 		pnl.add(btnSchedule);
 
-		// 왼쪽 패널
+		// 왼쪽 회원 정보 패널
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setBounds(0, 0, 263, 461);
 		pnl.add(panel);
 		panel.setLayout(null);
 
-		// 이미지 레이블
+		// 이미지 라벨
 		JLabel lblImage = new JLabel("이미지", SwingConstants.CENTER);
 		lblImage.setBounds(44, 27, 175, 155);
 		lblImage.setBackground(Color.WHITE);
 		lblImage.setOpaque(true);
 		panel.add(lblImage);
 
-		// 회원 정보 레이블
+		// 회원 정보 라벨
 		JLabel lblName = new JLabel("이름: " + member.getName());
 		lblName.setBounds(54, 201, 200, 27);
 		panel.add(lblName);
@@ -131,7 +126,7 @@ public class MemberMenu extends JFrame {
 		lblPT.setBounds(54, 424, 200, 27);
 		panel.add(lblPT);
 
-		// 출석 및 퇴장 시간 레이블
+		// 출석 및 퇴장 시간 라벨
 		lblEnterTime = new JLabel("");
 		lblEnterTime.setForeground(Color.RED);
 		lblEnterTime.setBounds(299, 290, 57, 15);
@@ -142,7 +137,7 @@ public class MemberMenu extends JFrame {
 		lblExitTime.setBounds(396, 290, 57, 15);
 		pnl.add(lblExitTime);
 
-		// 회원번호 레이블
+		// 회원번호 라벨
 		JLabel lblMemberNum = new JLabel("회원번호: " + member.getEnroll_code());
 		lblMemberNum.setBounds(309, 143, 200, 37);
 		pnl.add(lblMemberNum);
@@ -156,11 +151,8 @@ public class MemberMenu extends JFrame {
 		});
 		btnGoMenu.setBounds(387, 10, 85, 23);
 		pnl.add(btnGoMenu);
-
 		getContentPane().add(pnl);
-
 		setSize(500, 500);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	private String getCurrentTime() {

@@ -18,8 +18,7 @@ import trainer.trainerInput;
 import java.awt.Rectangle;
 
 public class InputNum extends JDialog {
-    private MemberDAO memberDAO = new MemberDAOImpl(); // MemberDAO 객체 생성
-//    private TrainerDAO trainerDAO = new TrainerDB(); // 트레이너 객체 생성
+    private MemberDAO memberDAO = new MemberDAOImpl(); // MemberDAO 생성
     
     public InputNum() {
         super((JFrame) null, "회원 번호 입력", true); // 모달 다이얼로그 생성
@@ -44,7 +43,53 @@ public class InputNum extends JDialog {
         txtInputNum.setBounds(130, 73, 158, 32);
         panel.add(txtInputNum);
         
-        // 여기서부터 버튼1 ~
+        // 다음으로 넘어가는 버튼
+        JButton btnCheck = new JButton("확인");
+        btnCheck.setBounds(104, 267, 63, 37);
+        panel.add(btnCheck);
+        btnCheck.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+        			// 멤버 등록번호
+        			int enrollCode = Integer.parseInt(txtInputNum.getText());
+        			Member member = memberDAO.memberSelectCode(enrollCode);
+        			
+        			if (member.getEnroll_code() != 0) {
+        				// 회원이 존재하면 회원 정보
+        				MemberMenu memberMenu = new MemberMenu(member);
+        				memberMenu.setLocationRelativeTo(null); // 창을 화면 중앙에
+        				memberMenu.setVisible(true);
+        				memberMenu.toFront();
+        				setVisible(false);
+//                    } else if (){
+        				// 트레이너가 존재하면 트레이너 메뉴로
+        			}
+        			//없으면
+        			else {
+        				JOptionPane.showMessageDialog(null, "회원번호가 존재하지 않습니다.");
+        			}
+        			// 문자나 공백 입력하면
+        		} catch (NumberFormatException ex) {
+        			JOptionPane.showMessageDialog(null, "잘못된 입력입니다. 숫자를 입력하세요.");
+        		}
+        		
+        	}
+        });
+        
+        // 번호 지우는 버튼
+        JButton btnFix = new JButton("수정");
+        btnFix.setBounds(254, 268, 63, 37);
+        panel.add(btnFix);
+        btnFix.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		txtInputNum.setText("");
+        	}
+        });
+        
+        
+        // 여기서부터 버튼1, 2, 3, ... 8, 9, 0
         JButton btnOne = new JButton("1");
 		btnOne.setBounds(104, 127, 63, 37);
 		panel.add(btnOne);
@@ -144,51 +189,8 @@ public class InputNum extends JDialog {
                 txtInputNum.setText(txtInputNum.getText() + 0);
             }
         });
-        // 여기까지 버튼 0
+        // 여기까지 버튼1, 2, 3, ... 8, 9, 0
         
-        // 다음으로 넘어가는 버튼
-        JButton btnCheck = new JButton("확인");
-        btnCheck.setBounds(104, 267, 63, 37);
-        panel.add(btnCheck);
-        btnCheck.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                	// 멤버 등록번호
-                    int enrollCode = Integer.parseInt(txtInputNum.getText());
-                    Member member = memberDAO.memberSelectCode(enrollCode);
-                    
-                    if (member.getEnroll_code() != 0) {
-                        // 회원이 존재하면 ㄱㄱ
-                        MemberMenu memberMenu = new MemberMenu(member);
-                        memberMenu.setLocationRelativeTo(null); // 창을 화면 중앙에
-                        memberMenu.setVisible(true);
-                        memberMenu.toFront();
-                        setVisible(false);
-//                    } else if (){
-                    }
-                    	//없으면
-                     else {
-                    	JOptionPane.showMessageDialog(null, "회원번호가 존재하지 않습니다.");
-                    }
-                    // 문자나 공백 입력시
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "잘못된 입력입니다. 숫자를 입력하세요.");
-                }
-                
-            }
-        });
-        
-        // 번호 지우는 버튼
-        JButton btnFix = new JButton("수정");
-        btnFix.setBounds(254, 268, 63, 37);
-        panel.add(btnFix);
-        btnFix.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                txtInputNum.setText("");
-            }
-        });
 
         getContentPane().add(panel, BorderLayout.CENTER);
 

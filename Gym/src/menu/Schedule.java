@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 import attend.Attend;
@@ -21,6 +22,7 @@ public class Schedule extends JFrame {
     private String[] dayOfWeek = { "일", "월", "화", "수", "목", "금", "토" };
     private AttendDAOImpl attendDAO = new AttendDAOImpl(); // DAO 객체
     private Member logMember; // 로그인된 회원 정보
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm"); // 시간 포맷터
 
     public Schedule(Member member) {
         super("스케줄");
@@ -80,8 +82,10 @@ public class Schedule extends JFrame {
                         message.append(currentYear).append("년 ").append(currentMonth).append("월 ").append(text).append("일\n");
 
                         for (Attend log : logs) {
-                            message.append("입장: ").append(log.getEnter_Time()).append(" | ");
-                            message.append("퇴장: ").append(log.getExit_Time()).append("\n");
+                            String enterTime = log.getEnter_Time().format(timeFormatter);
+                            String exitTime = (log.getExit_Time() != null) ? log.getExit_Time().format(timeFormatter) : "퇴장 없음";
+                            message.append("입장: ").append(enterTime).append("       |       ");
+                            message.append("퇴장: ").append(exitTime).append("\n");
                         }
 
                         if (logs.isEmpty()) {
@@ -113,7 +117,6 @@ public class Schedule extends JFrame {
         add(pnlCalendar, BorderLayout.CENTER);
 
         setSize(500, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
