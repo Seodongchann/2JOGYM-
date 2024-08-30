@@ -4,6 +4,10 @@ import javax.swing.*;
 
 import attend.Attend;
 import attend.AttendDAOImpl;
+import files.EncodeDecode;
+import memberShip.MemberShip;
+import memberShip.MemberShipDAO;
+import memberShip.MemberShipDAOImpl;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,20 +22,24 @@ import members.MemberDAO;
 import members.MemberDAOImpl;
 
 public class MemberMenu extends JFrame {
+	private EncodeDecode ende = new EncodeDecode();
 	private MemberDAO memberDAO = new MemberDAOImpl();
 	private AttendDAOImpl attendDAO = new AttendDAOImpl();
+	private MemberShipDAOImpl mem = new MemberShipDAOImpl();
+	
 	private Member member;
 	private JLabel lblEnterTime;
 	private JLabel lblExitTime;
 	private JButton btnEnter;
 	private JButton btnExit;
 
-	public MemberMenu(Member member) {
+	public MemberMenu(Member member, MemberShip memberShip) {
 		super("회원 메뉴 입니다");
 		this.member = member;
-
+		
 		JPanel pnl = new JPanel();
 		pnl.setLayout(null);
+		
 
 		// 출석 버튼
 		btnEnter = new JButton("출석");
@@ -90,11 +98,14 @@ public class MemberMenu extends JFrame {
 		panel.setLayout(null);
 
 		// 이미지 라벨
-		JLabel lblImage = new JLabel("이미지", SwingConstants.CENTER);
+		JLabel lblImage = new JLabel("이미지");
 		lblImage.setBounds(44, 27, 175, 155);
 		lblImage.setBackground(Color.WHITE);
 		lblImage.setOpaque(true);
 		panel.add(lblImage);
+		ImageIcon icon = new ImageIcon(ende.decode(member.getMember_image()));
+		
+		lblImage.setIcon(icon);		
 
 		// 회원 정보 라벨
 		JLabel lblName = new JLabel("이름: " + member.getName());
@@ -117,8 +128,8 @@ public class MemberMenu extends JFrame {
 		lblAddress.setBounds(54, 349, 200, 27);
 		panel.add(lblAddress);
 
-		// 회원권 및 PT 정보 (여기서는 임의로 추가)
-		JLabel lblMembership = new JLabel("회원권: 일반");
+		// 회원권 및 PT 정보 (아직 추가 안됨)
+		JLabel lblMembership = new JLabel("회원권: " + memberShip.getMembership_StartDate() + " ~ " + memberShip.getMembership_EndDate());
 		lblMembership.setBounds(54, 386, 200, 27);
 		panel.add(lblMembership);
 
@@ -154,6 +165,8 @@ public class MemberMenu extends JFrame {
 		getContentPane().add(pnl);
 		setSize(500, 500);
 	}
+
+	
 
 	private String getCurrentTime() {
 		SimpleDateFormat NowTime = new SimpleDateFormat("HH:mm");

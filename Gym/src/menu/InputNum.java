@@ -3,8 +3,13 @@ import java.awt.BorderLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.security.auth.callback.TextInputCallback;
 import javax.swing.*;
 
+import main.Admins;
+import memberShip.MemberShip;
+import memberShip.MemberShipDAOImpl;
 import members.Member;
 import members.MemberDAO;
 import members.MemberDAOImpl;
@@ -13,12 +18,14 @@ import members.ResultMapper;
 import trainer.Trainer;
 import trainer.TrainerDAO;
 import trainer.TrainerDAOImpl;
+import trainer.TrainerGUIApp;
 
 import java.awt.Rectangle;
 
 public class InputNum extends JDialog {
     private MemberDAO memberDAO = new MemberDAOImpl(); // MemberDAO 생성
-    
+    private Admins admins = new Admins(); // Admins 생성
+    private MemberShipDAOImpl mem = new MemberShipDAOImpl();
     public InputNum() {
         super((JFrame) null, "회원 번호 입력", true); // 모달 다이얼로그 생성
         getContentPane().setLayout(new BorderLayout());
@@ -42,6 +49,22 @@ public class InputNum extends JDialog {
         txtInputNum.setBounds(130, 73, 158, 32);
         panel.add(txtInputNum);
         
+        // 관리자 버튼
+        getContentPane().add(panel, BorderLayout.CENTER);
+        
+        JButton btnAdmins = new JButton("관리자");
+        btnAdmins.setBounds(362, 10, 78, 57);
+        btnAdmins.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				admins.setLocationRelativeTo(null);
+				admins.toFront();
+				admins.setVisible(true);
+				setVisible(false);
+			}
+		});
+        panel.add(btnAdmins);
+        
         // 다음으로 넘어가는 버튼
         JButton btnCheck = new JButton("확인");
         btnCheck.setBounds(104, 267, 63, 37);
@@ -56,13 +79,16 @@ public class InputNum extends JDialog {
         			
         			if (member.getEnroll_code() != 0) {
         				// 회원이 존재하면 회원 정보
-        				MemberMenu memberMenu = new MemberMenu(member);
+        				
+        				MemberShip members = new MemberShip();
+        				members = mem.memberShipSelect(enrollCode);
+        				System.out.println(members);
+        				
+        				MemberMenu memberMenu = new MemberMenu(member, members);
         				memberMenu.setLocationRelativeTo(null); // 창을 화면 중앙에
-        				memberMenu.setVisible(true);
         				memberMenu.toFront();
+        				memberMenu.setVisible(true);
         				setVisible(false);
-//                    } else if (){
-        				// 트레이너가 존재하면 트레이너 메뉴로
         			}
         			//없으면
         			else {
@@ -175,7 +201,7 @@ public class InputNum extends JDialog {
 		btnNine.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				txtInputNum.setText(txtInputNum.getText() + 8);
+				txtInputNum.setText(txtInputNum.getText() + 9);
 			}
 		});
 
@@ -191,7 +217,6 @@ public class InputNum extends JDialog {
         // 여기까지 버튼1, 2, 3, ... 8, 9, 0
         
 
-        getContentPane().add(panel, BorderLayout.CENTER);
 
         setSize(468, 416);
         setLocationRelativeTo(null);

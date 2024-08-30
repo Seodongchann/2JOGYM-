@@ -20,7 +20,6 @@ public class Admins extends JFrame {
 
 		add(tabbedPane);
 		setSize(1350,850);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	public static void main(String[] args) {
