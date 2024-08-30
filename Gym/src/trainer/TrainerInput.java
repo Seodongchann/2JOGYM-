@@ -37,7 +37,7 @@ public class TrainerInput extends JPanel {
 	private ImageIcon imag;
 	private TrainerInput input;
 	private JLabel birthlbl;
-	private JLabel phonelbl;
+	private JLabel phonelbl;;
 //	private JLabel memberNumlbl;
 	private JLabel adlbl;
 	private JButton imbtn;
