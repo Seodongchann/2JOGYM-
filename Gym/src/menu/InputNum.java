@@ -12,8 +12,7 @@ import members.MemberMapper;
 import members.ResultMapper;
 import trainer.Trainer;
 import trainer.TrainerDAO;
-import trainer.TrainerDB;
-import trainer.trainerInput;
+import trainer.TrainerDAOImpl;
 
 import java.awt.Rectangle;
 

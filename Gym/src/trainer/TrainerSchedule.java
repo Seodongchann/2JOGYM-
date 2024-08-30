@@ -23,14 +23,6 @@ import pt.PT;
 import pt.PTDAOImpl;
 
 public class TrainerSchedule extends JFrame {
-	PTDAOImpl pt = new PTDAOImpl();
-	
-//	public void list(PTDAOImpl pt) {
-//	List<PT> list2 = pt.selectDate(LocalDateTime.of(2024, 8, 29, 16, 30));
-//	
-//	
-//	}
-//	PTDAOImpl pt = new PTDAOImpl();
 	
 	private int date;
 	private int space;
@@ -39,7 +31,7 @@ public class TrainerSchedule extends JFrame {
 	private int currentMonth;
 	private JButton[] btnDay;
 	private String[] dayOfWeek = { "일", "월", "화", "수", "목", "금", "토" };
-
+	private PTDAOImpl pt;
 	public TrainerSchedule() {
 		super("트레이너 스케줄");
 
@@ -99,7 +91,7 @@ public class TrainerSchedule extends JFrame {
 					List<PT> list2 = pt.selectDate(date);
 					if (!text.isEmpty()) {
 						JOptionPane.showMessageDialog(TrainerSchedule.this,
-								currentYear + "년 " + currentMonth + "월 " + text + "일\n "+list2 , "날짜 선택",
+//								currentYear + "년 " + currentMonth + "월 " + text + "일\n "+ pt.selectTime(PT_Time), "날짜 선택",
 								JOptionPane.INFORMATION_MESSAGE);
 						
 					}
