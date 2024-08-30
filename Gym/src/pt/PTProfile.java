@@ -152,7 +152,7 @@ public class PTProfile extends JFrame {
 				Date da = new java.sql.Date(date2);
 
 				ls = dao.selectDate(da);
-			
+				
 				models = new DefaultTableModel(vector, 0) {
 					public boolean isCellEditable(int r, int c) {
 						return (c != 0) ? true : false;
