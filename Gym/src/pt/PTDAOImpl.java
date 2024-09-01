@@ -20,7 +20,7 @@ public class PTDAOImpl implements PTDAO {
 
 	// PT 등록
 	@Override
-	public int insert(PT pt) {
+	public int insert(PT pt, int num) {
 		String sql = "insert into pt(int PT_Trainer_ID, int PT_Member_ID, LocalDateTime PT_Time, int PT_Price, Date PT_EnrollDate,Date PT_Date)"
 				+ "Values(?,?,?,?,?) ";
 		Connection conn = null;
@@ -35,7 +35,9 @@ public class PTDAOImpl implements PTDAO {
 			stmt.setTimestamp(3, Timestamp.valueOf(pt.getPT_Time()));
 			stmt.setInt(4, pt.getPT_Price());
 			stmt.setDate(5, pt.getPT_EnrollDate());
-			result = stmt.executeUpdate();
+			for (int i = 0; i < num; i++) {
+				result += stmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -97,9 +99,9 @@ public class PTDAOImpl implements PTDAO {
 		}
 
 		return list;
-	
-		
+
 	}
+
 	@Override
 	public List<PT> selectAll() {
 		String sql = "Select * from pt";
@@ -124,16 +126,12 @@ public class PTDAOImpl implements PTDAO {
 		}
 
 		return list;
-	
-		
+
 	}
-	
-	
-	
+
 	@Override
 	public List<PT> selectPriceAndDate(int PT_Price, Date PT_Date) {
-		String sql = "select date(?) as d, sum(?) as price \r\n" + 
-				"from pt group by d";
+		String sql = "select date(?) as d, sum(?) as price \r\n" + "from pt group by d";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -143,7 +141,7 @@ public class PTDAOImpl implements PTDAO {
 			conn = DBUtil.getConnection("gym");
 			stmt = conn.prepareStatement(sql);
 			stmt.setDate(1, PT_Date);
-			stmt.setInt(2, PT_Price);	
+			stmt.setInt(2, PT_Price);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -161,8 +159,7 @@ public class PTDAOImpl implements PTDAO {
 
 	@Override
 	public List<PT> selectMonthPrice(int PT_Price, Date PT_Date) {
-		String sql = "select month(?) as mon, sum(?) as price \r\n" + 
-				"from pt group by mon with rollup";
+		String sql = "select month(?) as mon, sum(?) as price \r\n" + "from pt group by mon with rollup";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -172,7 +169,7 @@ public class PTDAOImpl implements PTDAO {
 			conn = DBUtil.getConnection("gym");
 			stmt = conn.prepareStatement(sql);
 			stmt.setDate(1, PT_Date);
-			stmt.setInt(2, PT_Price);	
+			stmt.setInt(2, PT_Price);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
