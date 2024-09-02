@@ -80,17 +80,6 @@ public class PTProfileSearch extends JPanel {
 			}
 		};
 
-//		for (PT t : list) {
-//			Vector<String> v = new Vector<String>();
-//			v.add(String.valueOf(t.getId()));
-//			v.add(t.getName());
-//			v.add(String.valueOf(t.getPhone()));
-//			v.add(t.getGender());
-//			v.add(t.getBirth());
-//			v.add(t.getAddress());
-//			v.add(String.valueOf(t.getStart_date()));
-//			model.addRow(v);
-//		}
 
 		JTable table = new JTable(model);
 		scroll = new JScrollPane(table);
@@ -105,42 +94,6 @@ public class PTProfileSearch extends JPanel {
 		setLayout(null);
 		setSize(800, 700);
 
-//		searchBtn.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				Date date = serachTf.getText();
-//				
-//				List<PT> list = dao.selectDate(PT_Date);
-//
-//				DefaultTableModel model;
-//				model = new DefaultTableModel(vector, 0) {
-//					public boolean isCellEditable(int r, int c) {
-//						return (c != 0) ? true : false;
-//					}
-//				};
-//
-//				for (PT t : list) {
-//					Vector<String> v = new Vector<String>();
-//					v.add(String.valueOf(t.getId()));
-//					v.add(t.getName());
-//					v.add(String.valueOf(t.getPhone()));
-//					v.add(t.getGender());
-//					v.add(t.getBirth());
-//					v.add(t.getAddress());
-//					v.add(String.valueOf(t.getStart_date()));
-//					model.addRow(v);
-//				}
-//
-//				JTable table = new JTable(model);
-//
-//				scroll.setViewportView(table);
-//
-//				revalidate();
-//				repaint();
-//			}
-//		});
 
 		searchAllBtn.addActionListener(new ActionListener() {
 
@@ -156,17 +109,6 @@ public class PTProfileSearch extends JPanel {
 					}
 				};
 
-//				for (PT t : list) {
-//					Vector<String> v = new Vector<String>();
-//					v.add(String.valueOf(t.getId()));
-//					v.add(t.getName());
-//					v.add(String.valueOf(t.getPhone()));
-//					v.add(t.getGender());
-//					v.add(t.getBirth());
-//					v.add(t.getAddress());
-//					v.add(String.valueOf(t.getStart_date()));
-//					model.addRow(v);
-//				}
 
 				JTable table = new JTable(model);
 

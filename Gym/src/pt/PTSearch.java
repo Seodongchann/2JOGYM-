@@ -47,10 +47,10 @@ public class PTSearch extends JPanel {
 		nameTf = new JTextField();
 		searchBtn = new JButton("PT검색");
 		searchAllBtn = new JButton("PT전체");
-		nameLbl.setBounds(10, 10, 60, 20);
-		nameTf.setBounds(80, 10, 100, 20);
-		searchBtn.setBounds(200, 10, 100, 20);
-		searchAllBtn.setBounds(320, 10, 150, 20);
+		nameLbl.setBounds(10, 20, 60, 20);
+		nameTf.setBounds(80, 20, 100, 20);
+		searchBtn.setBounds(200, 20, 100, 20);
+		searchAllBtn.setBounds(320, 20, 150, 20);
 		pmt = pdao.selectJoinAll();
 		vector = new Vector<String>();
 		vector.add("번호");

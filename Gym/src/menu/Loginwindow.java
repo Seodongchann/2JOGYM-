@@ -16,7 +16,7 @@ import main.Admins;
 public class Loginwindow extends JFrame {
 	Admins a = new Admins();
 	public Loginwindow() {
-		
+		super("로그인");
 		JLabel idlbl = new JLabel("사용자 : ");
 		idlbl.setBounds(20,20,80,30);
 		JTextField tf = new JTextField();
@@ -55,7 +55,7 @@ public class Loginwindow extends JFrame {
 		
 		
 		setLayout(null);
-		setSize(250,300);
+		setSize(300,220);
 		
 		
 		

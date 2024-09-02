@@ -160,8 +160,8 @@ public class MemberAndTrainerSearch extends JPanel {
 		tsearchNameAllBtn = new JButton("트레이너전체");
 		tnameLbl.setBounds(10, 30, 60, 20);
 		tnameTf.setBounds(80, 30, 100, 20);
-		tsearchNameBtn.setBounds(200, 30, 100, 20);
-		tsearchNameAllBtn.setBounds(320, 30, 150, 20);
+		tsearchNameBtn.setBounds(200, 30, 125, 20);
+		tsearchNameAllBtn.setBounds(330, 30, 150, 20);
 		trainer = tdao.TrainerselectAll();
 		vector2 = new Vector<String>();
 		vector2.add("번호");

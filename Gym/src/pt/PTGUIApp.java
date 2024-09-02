@@ -85,7 +85,7 @@ public class PTGUIApp extends JPanel implements ActionListener {
 
 			Time pt_time = Time.valueOf(pi.getTimeTf().getText());
 
-			System.out.println("_________________________");
+			
 			PT pt = new PT(pt_code, trainer_id, member_id, pt_time, ptDate);
 			int result = dao.updatePT(pt);
 			searchAll();

@@ -52,7 +52,7 @@ public class MemberShipDAOImpl implements MemberShipDAO {
 	// 등록 코드로 회원권 조회
 	@Override
 	public MemberShip memberShipSelect(int Enroll_Code) {
-		String sql = "select * from MemberShip where Enroll_Code = ? ;";
+		String sql = "select * from MemberShip where Membership_Enroll_Code = ? ;";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
