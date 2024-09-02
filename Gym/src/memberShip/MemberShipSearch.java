@@ -77,6 +77,8 @@ public class MemberShipSearch extends JPanel {
 		list = dao.joinMembers();
 
 		vector = new Vector<String>();
+
+		vector.add("번호");//-----
 		vector.add("이름");
 		vector.addElement("휴대전화");
 		vector.add("성별");
@@ -97,6 +99,7 @@ public class MemberShipSearch extends JPanel {
 
 		for (MembershipJoinMember m : list) {
 			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(m.getId())); //----
 			v.add(m.getName());
 			v.add(m.getPhone());
 			v.add(m.getGender());
@@ -142,12 +145,12 @@ public class MemberShipSearch extends JPanel {
 				// TODO Auto-generated method stub=
 				int row = table.getSelectedRow();
 				TableModel data = table.getModel();
-				String enroll_code = (String) data.getValueAt(row, 5);
-				Date start_date = java.sql.Date.valueOf((String) data.getValueAt(row, 6));
-
+				String enroll_code = (String) data.getValueAt(row, 6);
+//				Date start_date = java.sql.Date.valueOf((String) data.getValueAt(row, 6));
+				int id = Integer.parseInt((String) data.getValueAt(row, 0));
 				int enroll = Integer.parseInt(enroll_code);
 
-				MembershipJoinMember member = dao.selectMembership(enroll, start_date);
+				MembershipJoinMember member = dao.selectMemberships(id);
 //				if (member != null) {
 //					guiApp.getMm().getRgbtn().setEnabled(false);
 //					guiApp.getMm().getRetouchbtn().setEnabled(true);

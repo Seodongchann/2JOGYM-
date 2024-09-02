@@ -80,7 +80,7 @@ public class MemberShipDAOImpl implements MemberShipDAO {
 	@Override
 	public List<MembershipJoinMember> joinMembers() {
 
-		String sql = "select  a.member_name, a.member_phone, a.member_gender, a.member_birth, a.member_address,a.enroll_code, b.membership_startdate, b.membership_enddate,b.membership_enrolldate from member as a left join membership as b on a.enroll_code = b.membership_enroll_code;";
+		String sql = "select a.member_id, a.member_name, a.member_phone, a.member_gender, a.member_birth, a.member_address,a.enroll_code, b.membership_startdate, b.membership_enddate,b.membership_enrolldate from member as a left join membership as b on a.enroll_code = b.membership_enroll_code;";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -105,7 +105,7 @@ public class MemberShipDAOImpl implements MemberShipDAO {
 	@Override
 	public List<MembershipJoinMember> selectMembership(int enroll_code) {
 		List<MembershipJoinMember> m = new ArrayList<MembershipJoinMember>();
-		String sql = "select  a.member_name, a.member_phone, a.member_gender, a.member_birth, a.member_address,a.enroll_code, b.membership_startdate, b.membership_enddate,b.membership_enrolldate from member as a left join membership as b on a.enroll_code = b.membership_enroll_code where a.enroll_code= ? ;";
+		String sql = "select a.member_id, a.member_name, a.member_phone, a.member_gender, a.member_birth, a.member_address,a.enroll_code, b.membership_startdate, b.membership_enddate,b.membership_enrolldate from member as a left join membership as b on a.enroll_code = b.membership_enroll_code where a.enroll_code= ? ;";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -130,7 +130,7 @@ public class MemberShipDAOImpl implements MemberShipDAO {
 
 	@Override
 	public MembershipJoinMember selectMembership(int enroll_code, Date startDate) {
-		String sql = "select  a.member_name, a.member_phone, a.member_gender, a.member_birth, a.member_address,a.enroll_code, b.membership_startdate, b.membership_enddate,b.membership_enrolldate from member as a left join membership as b on a.enroll_code = b.membership_enroll_code where a.enroll_code= ? and b.membership_startDate = ?;";
+		String sql = "select a.member_id, a.member_name, a.member_phone, a.member_gender, a.member_birth, a.member_address,a.enroll_code, b.membership_startdate, b.membership_enddate,b.membership_enrolldate from member as a left join membership as b on a.enroll_code = b.membership_enroll_code where a.enroll_code= ? and b.membership_startDate = ?;";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -140,6 +140,32 @@ public class MemberShipDAOImpl implements MemberShipDAO {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, enroll_code);
 			stmt.setDate(2, startDate);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				MembershipJoinMember m = mapper.resultMapping(rs);
+				return m;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeAll(rs, stmt, conn);
+		}
+
+		return null;
+	}
+
+	@Override
+	public MembershipJoinMember selectMemberships(int id) {
+		String sql = "select a.member_id, a.member_name, a.member_phone, a.member_gender, a.member_birth, a.member_address,a.enroll_code, b.membership_startdate, b.membership_enddate,b.membership_enrolldate from member as a left join membership as b on a.enroll_code = b.membership_enroll_code where a.member_id= ?;";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBUtil.getConnection("gym");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
 				MembershipJoinMember m = mapper.resultMapping(rs);

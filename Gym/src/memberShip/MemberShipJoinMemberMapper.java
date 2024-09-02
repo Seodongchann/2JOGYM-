@@ -10,6 +10,7 @@ public class MemberShipJoinMemberMapper implements ResultMapper<MembershipJoinMe
 	@Override
 	public MembershipJoinMember resultMapping(ResultSet rs) {
 		try {
+			int id = rs.getInt("a.member_id");
 			String name = rs.getString("a.member_name");
 			String phone = rs.getString("a.member_phone");
 			String gender = rs.getString("a.Member_gender");
@@ -20,7 +21,7 @@ public class MemberShipJoinMemberMapper implements ResultMapper<MembershipJoinMe
 			Date memberShip_EndDate = rs.getDate("b.MemberShip_EndDate");
 			Date memberShip_EnrollDate = rs.getDate("b.MemberShip_EnrollDate");
 
-			return MembershipJoinMember.builder().name(name).phone(phone).gender(gender).birth(birth).address(address)
+			return MembershipJoinMember.builder().id(id). name(name).phone(phone).gender(gender).birth(birth).address(address)
 					.enroll_code(enroll_code).membership_StartDate(memberShip_StartDate)
 					.membership_EndDate(memberShip_EndDate).membership_EnrollDate(memberShip_EnrollDate).build();
 

@@ -13,5 +13,9 @@ public interface MemberShipDAO {
 	public List<MembershipJoinMember> selectMembership(int enroll_code);
 
 	public MembershipJoinMember selectMembership(int enroll_code, Date startDate);
+	
+	public MembershipJoinMember selectMemberships(int id);
+	
+	
 
 }
