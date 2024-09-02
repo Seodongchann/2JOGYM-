@@ -105,7 +105,7 @@ public class PTProfile extends JFrame {
 			v.add(String.valueOf(p.getPT_Trainer_ID()));
 			v.add(String.valueOf(p.getPT_Date()));
 			v.add(String.valueOf(p.getPT_EnrollDate()));
-			v.add(String.valueOf(p.getPT_Price()));
+//			v.add(String.valueOf(p.getPT_Price()));
 			v.add(String.valueOf(p.getPT_Time()));
 			model.addRow(v);
 		}
@@ -164,7 +164,7 @@ public class PTProfile extends JFrame {
 					v.add(String.valueOf(p.getPT_Trainer_ID()));
 					v.add(String.valueOf(p.getPT_Member_ID()));
 					v.add(String.valueOf(p.getPT_Time()));
-					v.add(String.valueOf(p.getPT_Price()));
+//					v.add(String.valueOf(p.getPT_Price()));
 					v.add(String.valueOf(p.getPT_EnrollDate()));
 					v.add(String.valueOf(p.getPT_Date()));
 					models.addRow(v);

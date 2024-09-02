@@ -13,8 +13,12 @@ public interface TrainerDAO {
 
 	public int TrainerUpdate(Trainer trainer); // 트레이너 정보 수정
 
+	public int deleteTrainer(int id);
+	
 	public List<Trainer> TrainerselectAll(); // 트레이너 전체 조회
 	
 	public List<Trainer> trainerSelectName(String name); //트레이너 이름 조회
+	
+	public Trainer trainerSelectId(int trainer_id);
 }
 

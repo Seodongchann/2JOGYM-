@@ -143,7 +143,11 @@ public class MemberSearch extends JPanel {
 				}
 
 				guiApp.getMm().getNametf().setText(member.getName());
-				guiApp.getMm().setRd(null);
+				if (member.getGender().equals("남성")) {
+					guiApp.getMm().getRd().setSelected(true);
+				} else {
+					guiApp.getMm().getRd2().setSelected(true);
+				}
 				guiApp.getMm().getPhonetf().setText(String.valueOf(member.getPhone()));
 				guiApp.getMm().getBirthtf().setText(member.getBirth());
 				guiApp.getMm().getAdtf().setText(member.getAddress());
@@ -176,5 +180,5 @@ public class MemberSearch extends JPanel {
 		searchBtn.addActionListener(guiApp);
 		searchAllBtn.addActionListener(guiApp);
 	}
-
+	
 }

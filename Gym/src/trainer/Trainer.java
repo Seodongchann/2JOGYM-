@@ -42,5 +42,15 @@ public class Trainer {
 		this.birth = birth;
 		this.address = address;
 	}
+	public Trainer(int id,String name, String phone, String gender, String birth, String address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.gender = gender;
+		this.birth = birth;
+		this.address = address;
+	}
+	
 
 }

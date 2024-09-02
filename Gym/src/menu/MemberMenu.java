@@ -81,7 +81,7 @@ public class MemberMenu extends JFrame {
 		pnl.add(btnExit);
 
 		// 스케줄 버튼
-		JButton btnSchedule = new JButton("스케줄");
+		JButton btnSchedule = new JButton("출석부");
 		btnSchedule.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Schedule(member).setVisible(true);
@@ -128,14 +128,14 @@ public class MemberMenu extends JFrame {
 		lblAddress.setBounds(54, 349, 200, 27);
 		panel.add(lblAddress);
 
-		// 회원권 및 PT 정보 (아직 추가 안됨)
-		JLabel lblMembership = new JLabel("회원권: " + memberShip.getMembership_StartDate() + " ~ " + memberShip.getMembership_EndDate());
-		lblMembership.setBounds(54, 386, 200, 27);
-		panel.add(lblMembership);
+	//	 회원권 및 PT 정보 (아직 추가 안됨)
+//		JLabel lblMembership = new JLabel("회원권: " + memberShip.getMembership_StartDate() + " ~ " + memberShip.getMembership_EndDate());
+//		lblMembership.setBounds(54, 386, 200, 27);
+//		panel.add(lblMembership);
 
-		JLabel lblPT = new JLabel("PT: 없음");
-		lblPT.setBounds(54, 424, 200, 27);
-		panel.add(lblPT);
+//		JLabel lblPT = new JLabel("PT: 없음");
+//		lblPT.setBounds(54, 424, 200, 27);
+//		panel.add(lblPT);
 
 		// 출석 및 퇴장 시간 라벨
 		lblEnterTime = new JLabel("");

@@ -8,6 +8,7 @@ import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -27,16 +28,20 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import files.EncodeDecode;
+import lombok.Data;
+import main.Admins;
+import members.Member;
 
-public class TrainerGUIApp extends JFrame implements ActionListener {
+@Data
+public class TrainerGUIApp extends JPanel implements ActionListener {
 	private EncodeDecode inde;
 	private TrainerInput ti;
 	private TrainerSearch ts;
 	private TrainerDAO tDAO = new TrainerDAOImpl();
 	private Date start_date;
+	private List<Trainer> list;
 
-	public TrainerGUIApp() {
-		super("사용자");
+	public TrainerGUIApp(Admins admin) {
 		setLayout(null);
 
 		ti = new TrainerInput(this);
@@ -49,13 +54,12 @@ public class TrainerGUIApp extends JFrame implements ActionListener {
 		ts.setLocation(500, 50);
 
 		setSize(1350, 800);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String commend = e.getActionCommand();
-		// 트레이너 등록 
+		// 트레이너 등록
 		if (commend.equals("등록")) {
 			String name = ti.getNametf().getText();
 			String phone = ti.getPhonetf().getText();
@@ -68,7 +72,6 @@ public class TrainerGUIApp extends JFrame implements ActionListener {
 			String birth = ti.getBirthtf().getText();
 			String address = ti.getAdtf().getText();
 
-
 			inde = new EncodeDecode();
 
 			String image;
@@ -80,14 +83,7 @@ public class TrainerGUIApp extends JFrame implements ActionListener {
 			Trainer trainer = new Trainer(name, phone, gender, birth, address);
 			int result = tDAO.TrainerInsert(trainer);
 
-			if (result == 1) {
-				ti.getNametf().setText("");
-				ti.getPhonetf().setText("");
-				ti.getBirthtf().setText("");
-				ti.getAdtf().setText("");
-//				ti.getMemberNumtf().setText("");
-			}
-
+			textClear(result);
 		} else if (commend.equals("수정")) {
 			String name = ti.getNametf().getText();
 			String phone = ti.getPhonetf().getText();
@@ -99,7 +95,7 @@ public class TrainerGUIApp extends JFrame implements ActionListener {
 			}
 			String birth = ti.getBirthtf().getText();
 			String address = ti.getAdtf().getText();
-//			int enroll_code = Integer.parseInt(ti.getMemberNumtf().getText());
+			int tr_code = Integer.parseInt(ti.getTrNumtf().getText());
 			inde = new EncodeDecode();
 
 			String image;
@@ -108,20 +104,104 @@ public class TrainerGUIApp extends JFrame implements ActionListener {
 			} else {
 				image = inde.encodeImage(ti.getFile());
 			}
-			Trainer trainer = new Trainer(name, phone, gender, birth, address);
+			Trainer trainer = new Trainer(tr_code, name, phone, gender, birth, address);
 			int result = tDAO.TrainerUpdate(trainer);
-			if (result == 1) {
-				ti.getNametf().setText("");
-				ti.getPhonetf().setText("");
-				ti.getBirthtf().setText("");
-				ti.getAdtf().setText("");
-//				ti.getMemberNumtf().setText("");
-			}
+			textClear(result);
+		} else if (commend.equals("삭제")) {
+			int trainer_id = Integer.parseInt(ti.getTrNumtf().getText());
+			int result = tDAO.deleteTrainer(trainer_id);
+			textClear(result);
+		} else if (commend.equals("초기화")) {
+			textClear(1);
+			ti.getRgbtn().setEnabled(true);
+			ti.getRetouchbtn().setEnabled(false);
+			ti.getDeletebtn().setEnabled(false);
+		} else if (commend.equals("검색")) {
+			searchName();
+			revalidate();
+			repaint();
+		} else if (commend.equals("전체")) {
+			searchAll();
+			revalidate();
+			repaint();
 		}
 	}
 
-	public static void main(String[] args) {
-		new TrainerGUIApp().setVisible(true);
+	public void textClear(int result) {
+		if (result == 1) {
+			ti.getNametf().setText("");
+			if (ti.getRd2().isSelected()) {
+				ti.getRd2().setSelected(false);
+				ti.getRd().setSelected(true);
+			}
+			ti.getTrNumlbl().setVisible(false);
+			ti.getTrNumtf().setText("");
+			ti.getTrNumtf().setVisible(false);
+			ti.getBirthtf().setText("");
+			ti.getPhonetf().setText("");
+			ti.getAdtf().setText("");
+			if (!ti.getRd().isSelected()) {
+				ti.getRd().setSelected(true);
+			}
+		}
+
+	}
+
+	private void searchName() {
+		String name = ts.getSerachTf().getText();
+		list = tDAO.trainerSelectName(name);
+
+		DefaultTableModel model;
+		model = new DefaultTableModel(ts.getVector(), 0) {
+			public boolean isCellEditable(int r, int c) {
+				return (c != 0) ? true : false;
+			}
+		};
+		for (Trainer t : list) {
+			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(t.getId()));
+			v.add(t.getName());
+			v.add(String.valueOf(t.getPhone()));
+			v.add(t.getGender());
+			v.add(t.getBirth());
+			v.add(t.getAddress());
+			// v.add(String.valueOf(t.getEnroll_code()));
+			model.addRow(v);
+		}
+
+		ts.getTable().setModel(model);
+		ts.getScroll().setViewportView(ts.getTable());
+
+		ts.getSerachTf().setText("");
+	}
+
+	private void searchAll() {
+		list = tDAO.TrainerselectAll();
+
+		// vector.add("등록코드");
+
+		// defaultTableModel 생성
+		DefaultTableModel model;
+		model = new DefaultTableModel(ts.getVector(), 0) {
+			public boolean isCellEditable(int r, int c) {
+				return (c != 0) ? true : false;
+			}
+		};
+
+		for (Trainer t : list) {
+			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(t.getId()));
+			v.add(t.getName());
+			v.add(String.valueOf(t.getPhone()));
+			v.add(t.getGender());
+			v.add(t.getBirth());
+			v.add(t.getAddress());
+			// v.add(String.valueOf(t.getEnroll_code()));
+			model.addRow(v);
+		}
+		ts.getTable().setModel(model);
+		ts.getScroll().setViewportView(ts.getTable());
+
 	}
 
 }

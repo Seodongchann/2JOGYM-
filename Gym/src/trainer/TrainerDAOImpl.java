@@ -17,7 +17,7 @@ import members.ResultMapper;
 
 public class TrainerDAOImpl implements TrainerDAO {
 	public static trainer.ResultMapper<Trainer> trainerMapper = new TrainerMapper();
-	
+
 	private Trainer resultMapping(ResultSet rs) throws SQLException {
 		String Trainer_Name = rs.getString("Trainer_Name");
 		String Trainer_Phone = rs.getString("Trainer_Phone");
@@ -25,16 +25,14 @@ public class TrainerDAOImpl implements TrainerDAO {
 		String Trainer_Birth = rs.getString("Trainer_Birth");
 		Date Trainer_Start_Date = rs.getDate("Trainer_Start_Date");
 		String Trainer_Address = rs.getString("Trainer_Address");
-		String Trainer_image = rs.getString("Trainer_image");
+//		String Trainer_image = rs.getString("Trainer_image");
 
-		return new Trainer(Trainer_Name, Trainer_Phone, Trainer_Gender, Trainer_Birth,
-				Trainer_Address);
+		return new Trainer(Trainer_Name, Trainer_Phone, Trainer_Gender, Trainer_Birth, Trainer_Address);
 	}
 
 	public int TrainerInsert(Trainer trainer) {
 		String sql = "insert into Trainer(Trainer_Name,Trainer_Phone, Trainer_Gender\r\n"
-				+ "				,Trainer_Birth "  + ",Trainer_Address\r\n" + "			) " 
-				+ "Values(?,?,?,?,?)";
+				+ "				,Trainer_Birth " + ",Trainer_Address\r\n" + "			) " + "Values(?,?,?,?,?)";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -69,7 +67,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(a);
 			while (rs.next()) {
-				Trainer trainer = resultMapping(rs);
+				Trainer trainer = trainerMapper.resultMappings(rs);
 				list.add(trainer);
 			}
 			return list;
@@ -93,7 +91,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 			stmt.setString(1, name);
 			rs = stmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				list.add(trainerMapper.resultMapping(rs));
 			}
 			return list;
@@ -107,7 +105,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 	@Override
 	public int TrainerUpdate(Trainer trainer) {
 		String sql = "update trainer set Trainer_Name = ?, Trainer_Phone = ?, Trainer_Gender = ?,"
-				+ " Trainer_Birth= ?, Trainer_Address = ?, Trainer_Start_Date = ?";
+				+ " Trainer_Birth= ?, Trainer_Address = ? where trainer_id =?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int result = 0;
@@ -120,8 +118,8 @@ public class TrainerDAOImpl implements TrainerDAO {
 			stmt.setString(3, trainer.getGender());
 			stmt.setString(4, trainer.getBirth());
 			stmt.setString(5, trainer.getAddress());
-			stmt.setDate(6, trainer.getStart_date());
-			
+			stmt.setInt(6, trainer.getId());
+
 			result = stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -132,8 +130,54 @@ public class TrainerDAOImpl implements TrainerDAO {
 		}
 
 		return result;
-	}	
-	
-	
+	}
 
+	@Override
+	public Trainer trainerSelectId(int trainer_id) {
+		String sql = "select * from trainer where trainer_id =?;";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Trainer tr = new Trainer();
+		try {
+			conn = DBUtil.getConnection("gym");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, trainer_id);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				System.out.println(rs.getString("trainer_name"));
+				tr = trainerMapper.resultMappings(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeAll(rs, stmt, conn);
+		}
+
+		return tr;
+	}
+
+	@Override
+	public int deleteTrainer(int id) {
+		String sql = "delete from trainer where trainer_id =?";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int result = 0;
+
+		try {
+			conn = DBUtil.getConnection("gym");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			result = stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeAll(null, stmt, conn);
+		}
+		return result;
+	}
 }

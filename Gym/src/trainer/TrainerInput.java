@@ -29,7 +29,7 @@ public class TrainerInput extends JPanel {
 	private ButtonGroup bg;
 	private JTextField birthtf;
 	private JTextField phonetf;
-//	private JTextField memberNumtf;
+	private JTextField trNumtf;
 	private JTextField adtf;
 	private JLabel imlbl;
 	private EncodeDecode inde;
@@ -38,7 +38,7 @@ public class TrainerInput extends JPanel {
 	private TrainerInput input;
 	private JLabel birthlbl;
 	private JLabel phonelbl;
-//	private JLabel memberNumlbl;
+	private JLabel trNumlbl;
 	private JLabel adlbl;
 	private JButton imbtn;
 	private JButton rgbtn;
@@ -71,10 +71,12 @@ public class TrainerInput extends JPanel {
 		phonetf = new JTextField(12);
 		phonelbl.setBounds(180, 100, 70, 20);
 		phonetf.setBounds(240, 100, 90, 20);
-//		memberNumlbl = new JLabel("등록 번호");
-//		memberNumtf = new JTextField(20);
-//		memberNumlbl.setBounds(50, 150, 100, 20);
-//		memberNumtf.setBounds(130, 150, 200, 20);
+		trNumlbl = new JLabel("트레이너번호");
+		trNumtf = new JTextField(20);
+		trNumlbl.setVisible(false);
+		trNumtf.setVisible(false);
+		trNumlbl.setBounds(50, 150, 100, 20);
+		trNumtf.setBounds(130, 150, 200, 20);
 
 		adlbl = new JLabel("주소");
 		adtf = new JTextField(30);
@@ -115,12 +117,14 @@ public class TrainerInput extends JPanel {
 		retouchbtn = new JButton("수정");
 		retouchbtn.setBounds(110, 570, 60, 25);
 		retouchbtn.addActionListener(guiApp);
-	//	retouchbtn.setEnabled(false);
+		retouchbtn.setEnabled(false);
 		deletebtn = new JButton("삭제");
 		deletebtn.setBounds(170, 570, 60, 25);
 		deletebtn.setEnabled(false);
+		deletebtn.addActionListener(guiApp);
 		resetbtn = new JButton("초기화");
 		resetbtn.setBounds(230, 570, 100, 25);
+		resetbtn.addActionListener(guiApp);
 		add(namelbl);
 		add(nametf);
 		add(rd);
@@ -129,8 +133,8 @@ public class TrainerInput extends JPanel {
 		add(birthtf);
 		add(phonelbl);
 		add(phonetf);
-//		add(memberNumlbl);
-//		add(memberNumtf);
+		add(trNumlbl);
+		add(trNumtf);
 		add(adlbl);
 		add(adtf);
 		add(imlbl);

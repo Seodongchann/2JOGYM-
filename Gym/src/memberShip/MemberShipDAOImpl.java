@@ -66,6 +66,7 @@ public class MemberShipDAOImpl implements MemberShipDAO {
 			if (rs.next()) {
 				memberShip = mResultMapper.resultMapping(rs);
 			}
+			return memberShip;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

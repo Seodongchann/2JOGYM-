@@ -90,7 +90,7 @@ public class MemberDAOImpl implements MemberDAO {
 			if (rs.next()) {
 				member = memberMapper.resultMapping(rs);
 			}
-
+			return member;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,6 +121,8 @@ public class MemberDAOImpl implements MemberDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			DBUtil.closeAll(rs, stmt, conn);
 		}
 
 		return null;
@@ -150,6 +152,7 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		return null;
 	}
+
 	// 등록 코드로 회원 삭제
 	@Override
 	public int memberDelete(int Enroll_Code) {
