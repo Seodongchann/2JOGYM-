@@ -76,7 +76,7 @@ public class MemberShipGUIApp extends JPanel implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
+			searchAll();
 			textClear();
 		} else if (commend.equals("초기화")) {
 			textClear();
@@ -124,6 +124,7 @@ public class MemberShipGUIApp extends JPanel implements ActionListener {
 
 		for (MembershipJoinMember m : members) {
 			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(m.getId()));
 			v.add(m.getName());
 			v.add(m.getPhone());
 			v.add(m.getGender());
@@ -155,6 +156,7 @@ public class MemberShipGUIApp extends JPanel implements ActionListener {
 
 		for (MembershipJoinMember m : members) {
 			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(m.getId()));
 			v.add(m.getName());
 			v.add(m.getPhone());
 			v.add(m.getGender());
