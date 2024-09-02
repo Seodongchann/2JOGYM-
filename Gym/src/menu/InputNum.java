@@ -91,7 +91,9 @@ public class InputNum extends JDialog {
         				memberMenu.setLocationRelativeTo(null); // 창을 화면 중앙에
         				memberMenu.toFront();
         				memberMenu.setVisible(true);
+        				memberMenu.setAlwaysOnTop(true);
         				setVisible(false);
+        				
         			}
         			//없으면
         			else {

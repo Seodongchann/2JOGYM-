@@ -11,8 +11,8 @@ public class MemberShipMapper implements ResultMapper<MemberShip> {
 	@Override
 	public MemberShip resultMapping(ResultSet rs) {
 		try {
-			int memberShip_id = rs.getInt("MemberShip_Id");
-			int enroll_code = rs.getInt("Enroll_Code");
+			int memberShip_id = rs.getInt("MemberShip_Code");
+			int enroll_code = rs.getInt("Membership_Enroll_Code");
 			int membership_Month = rs.getInt("MemberShip_Month");
 			int membership_price = rs.getInt("MemberShip_Price");
 			Date memberShip_StartDate = rs.getDate("MemberShip_StartDate");

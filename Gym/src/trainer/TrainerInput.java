@@ -101,6 +101,7 @@ public class TrainerInput extends JPanel {
 					file = filechooser.getSelectedFile();
 					imag = new ImageIcon(file.getPath());
 					imlbl.setIcon(imag);
+					imlbl.setText(null);
 				}
 			}
 		});

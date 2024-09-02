@@ -115,7 +115,8 @@ public class Schedule extends JFrame {
 
         add(pnlSearch, BorderLayout.NORTH);
         add(pnlCalendar, BorderLayout.CENTER);
-
+        setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
         setSize(500, 500);
         setVisible(true);
     }

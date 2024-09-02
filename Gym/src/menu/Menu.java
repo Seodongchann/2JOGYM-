@@ -21,6 +21,7 @@ public class Menu extends JFrame {
         		InputNum inputNum = new InputNum();
         		inputNum.setLocationRelativeTo(Menu.this); 
         		inputNum.setVisible(true);
+        		
         	}
         });
 
@@ -33,6 +34,7 @@ public class Menu extends JFrame {
         pnl.add(pnlSouth, BorderLayout.SOUTH);
         add(pnl);
         setSize(750, 550);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }

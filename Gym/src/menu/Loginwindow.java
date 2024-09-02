@@ -53,10 +53,10 @@ public class Loginwindow extends JFrame {
 		add(pwfd);
 		add(btn);
 		
-		
+		setLocationRelativeTo(null);
 		setLayout(null);
 		setSize(300,220);
-		
+		setAlwaysOnTop(true);
 		
 		
 	}
