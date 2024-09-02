@@ -23,6 +23,7 @@ import trainer.TrainerGUIApp;
 import java.awt.Rectangle;
 
 public class InputNum extends JDialog {
+	Loginwindow log = new Loginwindow();
     private MemberDAO memberDAO = new MemberDAOImpl(); // MemberDAO 생성
     private Admins admins = new Admins(); // Admins 생성
     private MemberShipDAOImpl mem = new MemberShipDAOImpl();
@@ -57,9 +58,11 @@ public class InputNum extends JDialog {
         btnAdmins.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				admins.setLocationRelativeTo(null);
 				admins.toFront();
-				admins.setVisible(true);
+				log.setLocationRelativeTo(null);
+				log.setVisible(true);
 				setVisible(false);
 			}
 		});

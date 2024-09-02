@@ -25,7 +25,7 @@ public class Schedule extends JFrame {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm"); // 시간 포맷터
 
     public Schedule(Member member) {
-        super("스케줄");
+        super("출석부");
 
         this.logMember = member;
         Calendar today = Calendar.getInstance();
