@@ -49,6 +49,8 @@ public class MemberAndTrainerSearch extends JPanel {
 	private JScrollPane scroll2;
 	private DefaultTableModel model;
 	private DefaultTableModel model2;
+	private JButton searchNameAllbtn;
+	private JButton tsearchNameAllBtn;
 
 	public MemberAndTrainerSearch(PTGUIApp guiApp) {
 		allPnl = new JPanel();
@@ -64,13 +66,15 @@ public class MemberAndTrainerSearch extends JPanel {
 		nameLbl = new JLabel("이름");
 		nameTf = new JTextField();
 		searchNameBtn = new JButton("회원검색");
+		searchNameAllbtn = new JButton("회원전체");
 		nameLbl.setBounds(10, 30, 60, 20);
 		nameTf.setBounds(80, 30, 100, 20);
-		searchNameBtn.setBounds(200, 30, 60, 20);
-
+		searchNameBtn.setBounds(200, 30, 100, 20);
+		searchNameAllbtn.setBounds(320, 30, 150, 20);
 		mPnl.add(nameLbl);
 		mPnl.add(nameTf);
 		mPnl.add(searchNameBtn);
+		mPnl.add(searchNameAllbtn);
 
 		member = mdao.memberSelectAll();
 
@@ -153,10 +157,11 @@ public class MemberAndTrainerSearch extends JPanel {
 		tnameLbl = new JLabel("이름");
 		tnameTf = new JTextField();
 		tsearchNameBtn = new JButton("트레이너검색");
+		tsearchNameAllBtn = new JButton("트레이너전체");
 		tnameLbl.setBounds(10, 30, 60, 20);
 		tnameTf.setBounds(80, 30, 100, 20);
-		tsearchNameBtn.setBounds(200, 30, 60, 20);
-
+		tsearchNameBtn.setBounds(200, 30, 100, 20);
+		tsearchNameAllBtn.setBounds(320, 30, 150, 20);
 		trainer = tdao.TrainerselectAll();
 		vector2 = new Vector<String>();
 		vector2.add("번호");
@@ -243,6 +248,7 @@ public class MemberAndTrainerSearch extends JPanel {
 		tPnl.add(tnameLbl);
 		tPnl.add(tnameTf);
 		tPnl.add(tsearchNameBtn);
+		tPnl.add(tsearchNameAllBtn);
 
 		allPnl.add(mPnl);
 		allPnl.add(tPnl);
@@ -251,7 +257,9 @@ public class MemberAndTrainerSearch extends JPanel {
 		setLayout(null);
 		setSize(900, 450);
 		searchNameBtn.addActionListener(guiApp);
+		searchNameAllbtn.addActionListener(guiApp);
 		tsearchNameBtn.addActionListener(guiApp);
+		tsearchNameAllBtn.addActionListener(guiApp);
 	}
 
 }

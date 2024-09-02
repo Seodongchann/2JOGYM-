@@ -101,13 +101,26 @@ public class PTGUIApp extends JPanel implements ActionListener {
 			searchMember();
 			revalidate();
 			repaint();
+		} else if (commend.equals("회원전체")) {
+			resetMember();
+			revalidate();
+			repaint();
+
 		} else if (commend.equals("트레이너검색")) {
 			searchTrainer();
 			revalidate();
 			repaint();
 
+		} else if (commend.equals("트레이너전체")) {
+			resetTrainer();
+			revalidate();
+			repaint();
 		} else if (commend.equals("PT검색")) {
 			searchPT();
+			revalidate();
+			repaint();
+		} else if (commend.equals("PT전체")) {
+			resetPt();
 			revalidate();
 			repaint();
 		}
@@ -236,6 +249,90 @@ public class PTGUIApp extends JPanel implements ActionListener {
 		pts.getNameTf().setText("");
 
 	}
+
+	public void resetMember() {
+		listm = mdao.memberSelectAll();
+		DefaultTableModel model;
+		model = new DefaultTableModel(mts.getVector(), 0) {
+			public boolean isCellEditable(int r, int c) {
+				return (c != 0) ? true : false;
+			}
+		};
+
+		for (Member m : listm) {
+			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(m.getId()));
+			v.add(m.getName());
+			v.add(String.valueOf(m.getPhone()));
+			v.add(m.getGender());
+			v.add(m.getBirth());
+			v.add(m.getAddress());
+			v.add(String.valueOf(m.getEnroll_code()));
+			model.addRow(v);
+		}
+		mts.getTable().setModel(model);
+		mts.getScroll().setViewportView(mts.getTable());
+
+		mts.getNameTf().setText("");
+
+	};
+
+	public void resetTrainer() {
+		listt = tdao.TrainerselectAll();
+		DefaultTableModel model;
+		model = new DefaultTableModel(mts.getVector2(), 0) {
+			public boolean isCellEditable(int r, int c) {
+				return (c != 0) ? true : false;
+			}
+		};
+
+		for (Trainer t : listt) {
+			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(t.getId()));
+			v.add(t.getName());
+			v.add(String.valueOf(t.getPhone()));
+			v.add(t.getGender());
+			v.add(t.getBirth());
+			v.add(t.getAddress());
+			v.add(String.valueOf(t.getStart_date()));
+			model.addRow(v);
+		}
+		mts.getTable2().setModel(model);
+		mts.getScroll2().setViewportView(mts.getTable2());
+
+		mts.getTnameTf().setText("");
+	};
+
+	public void resetPt() {
+		pmt = dao.selectJoinAll();
+		DefaultTableModel model;
+		model = new DefaultTableModel(pts.getVector(), 0) {
+			public boolean isCellEditable(int r, int c) {
+				return (c != 0) ? true : false;
+			}
+		};
+
+		for (PTMemberTrainer p : pmt) {
+			Vector<String> v = new Vector<String>();
+			v.add(String.valueOf(p.getPt_code()));
+			v.add(p.getName());
+			v.add(p.getMPhone());
+			v.add(p.getGender());
+			v.add(p.getBrith());
+			v.add(String.valueOf(p.getEnroll_code()));
+			v.add(String.valueOf(p.getT_id()));
+			v.add(p.getTName());
+			v.add(p.getTPhone());
+			v.add(p.getTGender());
+			v.add(p.getTBirth());
+			v.add(String.valueOf(p.getPt_time()));
+			model.addRow(v);
+		}
+		pts.getTable().setModel(model);
+		pts.getScroll().setViewportView(pts.getTable());
+
+		pts.getNameTf().setText("");
+	};
 
 	public void clearText(int result) {
 		if (result >= 1) {

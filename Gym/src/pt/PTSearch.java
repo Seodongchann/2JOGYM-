@@ -36,6 +36,7 @@ public class PTSearch extends JPanel {
 	private PTMemberTrainer spmt = null;
 	private PTInput input;
 	private Vector<String> vector;
+	private JButton searchAllBtn;
 
 	public PTSearch(PTGUIApp guiApp) {
 		pnl = new JPanel();
@@ -45,10 +46,11 @@ public class PTSearch extends JPanel {
 		nameLbl = new JLabel("이름");
 		nameTf = new JTextField();
 		searchBtn = new JButton("PT검색");
+		searchAllBtn = new JButton("PT전체");
 		nameLbl.setBounds(10, 10, 60, 20);
 		nameTf.setBounds(80, 10, 100, 20);
 		searchBtn.setBounds(200, 10, 100, 20);
-
+		searchAllBtn.setBounds(320, 10, 150, 20);
 		pmt = pdao.selectJoinAll();
 		vector = new Vector<String>();
 		vector.add("번호");
@@ -156,11 +158,13 @@ public class PTSearch extends JPanel {
 		pnl.add(nameLbl);
 		pnl.add(nameTf);
 		pnl.add(searchBtn);
+		pnl.add(searchAllBtn);
 
 		add(pnl);
 		setLayout(null);
 		setSize(1350, 300);
 		searchBtn.addActionListener(guiApp);
+		searchAllBtn.addActionListener(guiApp);
 	}
 
 }
