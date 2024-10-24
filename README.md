@@ -25,6 +25,8 @@
 
 ![image](https://github.com/user-attachments/assets/be111d3f-d1db-488a-868c-cab1ec2a76a2)
 
+**내가 담당한 Class** 
+![image](https://github.com/user-attachments/assets/31156d25-318c-422b-b9f5-bec8ea5fcc76)
 
 
 
