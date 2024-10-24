@@ -1,5 +1,5 @@
 <h1 align="center">
- <img src = "https://github.com/user-attachments/assets/e202317b-0923-4f18-b7b3-732b34c47da8" width="400" height="400"/>
+ <img src = "https://github.com/user-attachments/assets/e202317b-0923-4f18-b7b3-732b34c47da8" width="700" height="400"/>
 
   ATOMY GYM 
 </h1>
