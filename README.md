@@ -8,7 +8,7 @@
  
 </p>
 
-## SubKing ProJect
+## ATOMY GYM PROJECT
 > 헬스장 회원관리 프로그램 
 > 
 > 개발기간 : 2024.08.22 ~ 2024.09.02
