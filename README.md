@@ -129,7 +129,7 @@
 >
 > [Profile generator](https://gprm.itsvg.in/)
 
-[![GitHub stats](https://github-readme-stats.vercel.app/api?username=SYacuCLoud)](https://github.com/SYacuCLoud)
+[![GitHub stats](https://github-readme-stats.vercel.app/api?username=SYacuCLoud)](https://github.com/Seodongchann)
 
 
 
